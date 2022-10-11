@@ -14,11 +14,11 @@ async function getRecords(space) {
 			}
 		},{
 			"$match": {
-				"time": { "$gt": start.valueOf().toString() }
+				"time": { "$gt": start.valueOf() }
 			}
 		},{
 			"$match": {
-				"time": { "$lt": end.valueOf().toString() }
+				"time": { "$lt": end.valueOf() }
 			}
 		}, {
 			'$group': {
@@ -32,13 +32,14 @@ async function getRecords(space) {
 			}
 		}, {
 			'$sort': {
-				'numberOfVisitors': -1
+				'_id.time': 1
 			}
 		}
 	]
 
 	const cursor = db.collection("records").aggregate(agg)
 	const result = await cursor.toArray()
+	console.log(result)
 
 	return {
 		statusCode: 200,
