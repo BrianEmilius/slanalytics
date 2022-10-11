@@ -8,7 +8,7 @@ function App() {
 	const [data, setData] = useState({labels: [], datasets: []})
 
 	useEffect(function() {
-		fetch("/.netlify/functions/get-records?space=242-2424-23424")
+		fetch("/.netlify/functions/get-records?space=d61f0d7e-08b4-5b3a-9477-906fe4b11663")
 			.then(res => res.json())
 			.then(results => setData({
 				labels: results.map(record => hourMinute(record._id.time)),
