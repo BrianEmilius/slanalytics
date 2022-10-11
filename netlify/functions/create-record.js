@@ -4,7 +4,7 @@ async function createRecord(body) {
 	const db = await connect()
 	const bulk = db.collection("records").initializeUnorderedBulkOp()
 
-	body.records?.forEach(record => bulk.insert({ space: body.space, time: body.time, key: record }))
+	body.records?.forEach(record => bulk.insert({ space: body.space, time: new Date().valueOf(), key: record }))
 
 	const result = await bulk.execute()
 
