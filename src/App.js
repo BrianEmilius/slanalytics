@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 // eslint-disable-next-line
 import Chart from "chart.js/auto"
-import { Bar } from "react-chartjs-2"
+import { Line } from "react-chartjs-2"
 import hourMinute from "./helpers/hour-minute"
 
 function App() {
@@ -15,8 +15,9 @@ function App() {
 				datasets: [
 					{
 						label: "Visitors",
+						borderColor: "#499651",
 						data: results.map(record => record.numberOfVisitors),
-						tension: 0.5
+						tension: 0.4
 					}
 				]
 			}))
@@ -24,7 +25,7 @@ function App() {
 
 	return (
 		<div>
-			<Bar data={data}/>
+			<Line data={data}/>
 		</div>
 	)
 }
