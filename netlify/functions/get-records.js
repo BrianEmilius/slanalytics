@@ -1,11 +1,7 @@
 var connect = require("../mongodb")
 
-async function getRecords(space) {
+async function getRecords(space, start, end) {
 	const db = await connect()
-
-	const date = new Date()
-	const start = date.setUTCHours(0,0,0,0)
-	const end = date.setUTCHours(23,59,59,999)
 
 	const agg = [
 		{
@@ -14,11 +10,11 @@ async function getRecords(space) {
 			}
 		},{
 			"$match": {
-				"time": { "$gt": start.valueOf() }
+				"time": { "$gt": parseInt(start) }
 			}
 		},{
 			"$match": {
-				"time": { "$lt": end.valueOf() }
+				"time": { "$lt": parseInt(end) }
 			}
 		}, {
 			'$group': {
@@ -39,7 +35,6 @@ async function getRecords(space) {
 
 	const cursor = db.collection("records").aggregate(agg)
 	const result = await cursor.toArray()
-	console.log(result)
 
 	return {
 		statusCode: 200,
@@ -61,5 +56,5 @@ module.exports.handler = async function(event, context) {
 
 	const searchParams = new URLSearchParams(event.rawQuery)
 
-	return getRecords(searchParams.get("space"))
+	return getRecords(searchParams.get("space"), searchParams.get("start"), searchParams.get("end"))
 }
