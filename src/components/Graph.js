@@ -18,7 +18,7 @@ export default function Graph() {
 		scales: {
 			y: {
 				min: 0,
-				max: 100
+				max: 70
 			},
 			x: {
 				grid: {
@@ -39,10 +39,11 @@ export default function Graph() {
 					{
 						label: "Visitors",
 						borderColor: "rgb(73,150,81)",
-						backgroundColor: "rgba(73,150,81,0.5)",
+						borderWidth: 1,
+						backgroundColor: "rgba(73,150,81,0.4)",
 						data: results.map(record => record.numberOfVisitors),
 						tension: 0.3,
-						pointRadius: 0,
+						pointRadius: 1,
 						fill: true
 					}
 				]
